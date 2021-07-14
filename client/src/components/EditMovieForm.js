@@ -7,6 +7,16 @@ import axios from 'axios';
 const EditMovieForm = (props) => {
 	const { push } = useHistory();
 
+	const {id} = useParams();
+
+	useEffect(() => {
+		// API NOT WORKING
+		// axios.get('http://localhost:5000/api/movies/:id')
+		// 	.then(res => {
+		// 		setMovie()
+		// 	})
+	}, [])
+
 	const [movie, setMovie] = useState({
 		title:"",
 		director: "",
@@ -22,8 +32,23 @@ const EditMovieForm = (props) => {
         });
     }
 
+	const updateLocalMovieState = list => {
+		props.setMovies(list);
+	}
+
+	const axiosPutMovie = () => {
+		// WILL NEED TO CHANGE ONCE API IS WORKING
+		axios.put('http://localhost:5000/api/movies/:id', movie)
+			.then(res => {
+				console.log('movie added', res)
+				updateLocalMovieState(res)
+			})
+	}
+
     const handleSubmit = (e) => {
 		e.preventDefault();
+		axiosPutMovie();
+		push('/movies/:id');
 	}
 	
 	const { title, director, genre, metascore, description } = movie;
