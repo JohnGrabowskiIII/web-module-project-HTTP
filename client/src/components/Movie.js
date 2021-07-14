@@ -21,6 +21,13 @@ const Movie = (props) => {
             })
     }, [id]);
 
+    const clickDelete = () => {
+        // API NOT WORKING
+        axios.delete('http://localhost:5000/api/movies/:id');
+        props.delete(id);
+        push('/movies')
+    }
+
     return(<div className="modal-page col">
         <div className="modal-dialog">
             <div className="modal-content">
@@ -52,7 +59,8 @@ const Movie = (props) => {
                         <section>
                             <span className="m-2 btn btn-dark">Favorite</span>
                             <Link to={`/movies/edit/${movie.id}`} className="m-2 btn btn-success">Edit</Link>
-                            <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
+                            {/* CHECK IF ONCLICK WORKS OK WHEN API IS WORKING */}
+                            <span className="delete" onClick={props.delete} ><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
                         </section>
                     </div>
                 </div>
